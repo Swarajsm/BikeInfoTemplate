@@ -16,11 +16,16 @@
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      max-width: 400px;
+      max-width: 420px;
       margin: auto;
     }
-    h1 { margin-bottom: 10px; }
-    h2 { margin-top: 5px; font-size: 18px; }
+    h1 { margin-bottom: 5px; }
+    h2 { margin: 10px 0 5px; font-size: 18px; }
+    h3 { margin: 15px 0 8px; }
+    p { margin: 4px 0; }
+    .label {
+      font-weight: bold;
+    }
     a {
       color: #007bff;
       text-decoration: none;
@@ -35,9 +40,17 @@
   <div class="card">
     <h1 id="name">Loading...</h1>
     <h2 id="blood"></h2>
+
     <h3>Emergency Contacts</h3>
-    <p><a id="emergency1" href="#"></a></p>
-    <p><a id="emergency2" href="#"></a></p>
+    <p><span class="label">Primary: </span><a id="emergency1" href="#"></a></p>
+    <p><span class="label">Alternate: </span><a id="emergency2" href="#"></a></p>
+
+    <h3>Medical Info</h3>
+    <p id="medical">None specified</p>
+
+    <h3>Insurance</h3>
+    <p><span class="label">Policy: </span><span id="insurancePolicy">Not provided</span></p>
+    <p><span class="label">Provider: </span><span id="insuranceProvider">Not provided</span></p>
   </div>
 
   <script>
@@ -48,6 +61,9 @@
     const blood = params.get("blood") || "Not provided";
     const emergency1 = params.get("emergency1") || "";
     const emergency2 = params.get("emergency2") || "";
+    const medical = params.get("medical") || "None specified";
+    const insurancePolicy = params.get("insurancePolicy") || "Not provided";
+    const insuranceProvider = params.get("insuranceProvider") || "Not provided";
 
     // Populate page
     document.getElementById("name").textContent = name;
@@ -56,13 +72,17 @@
     if (emergency1) {
       const link1 = document.getElementById("emergency1");
       link1.textContent = emergency1;
-      link1.href = `tel:${emergency1}`;
+      link1.href = `tel:${emergency1.split(":").pop()}`;
     }
     if (emergency2) {
       const link2 = document.getElementById("emergency2");
       link2.textContent = emergency2;
-      link2.href = `tel:${emergency2}`;
+      link2.href = `tel:${emergency2.split(":").pop()}`;
     }
+
+    document.getElementById("medical").textContent = medical;
+    document.getElementById("insurancePolicy").textContent = insurancePolicy;
+    document.getElementById("insuranceProvider").textContent = insuranceProvider;
   </script>
 </body>
 </html>
